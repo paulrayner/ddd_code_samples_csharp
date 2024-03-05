@@ -3,6 +3,7 @@ namespace Warranty;
 
 public class Contract
 {
+    public enum Lifecycle { Pending, Active, Expired }
 
     public double PurchasePrice;
 
@@ -10,10 +11,12 @@ public class Contract
     public DateTime EffectiveDate { get; }
     public DateTime ExpirationDate { get; }
     public Guid Id { get; }
+    public Lifecycle Status { get; set; }
 
     public Contract(double purchasePrice, DateTime purchaseDate, DateTime effectiveDate, DateTime expirationDate)
     {
         Id = Guid.NewGuid();
+        Status = Lifecycle.Pending;
         PurchasePrice = purchasePrice;
         PurchaseDate = purchaseDate;
         EffectiveDate = effectiveDate;

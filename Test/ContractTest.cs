@@ -13,6 +13,7 @@ public class ContractTest
 
         Assert.IsNotNull(contract.Id);
         Assert.AreEqual(100.0, contract.PurchasePrice);
+        Assert.AreEqual(Warranty.Contract.Lifecycle.Pending, contract.Status);
         Assert.AreEqual(new DateTime(2010, 5, 6), contract.PurchaseDate);
         Assert.AreEqual(new DateTime(2010, 5, 8), contract.EffectiveDate);
         Assert.AreEqual(new DateTime(2013, 5, 8), contract.ExpirationDate);
