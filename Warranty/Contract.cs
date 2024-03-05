@@ -1,5 +1,4 @@
-﻿
-namespace Warranty;
+﻿namespace Warranty;
 
 public class Contract
 {
@@ -12,12 +11,14 @@ public class Contract
     public DateTime ExpirationDate { get; }
     public Guid Id { get; }
     public Lifecycle Status { get; set; }
+    public Product CoveredProduct { get; set; }
 
-    public Contract(double purchasePrice, DateTime purchaseDate, DateTime effectiveDate, DateTime expirationDate)
+    public Contract(double purchasePrice, Product coveredProduct, DateTime purchaseDate, DateTime effectiveDate, DateTime expirationDate)
     {
         Id = Guid.NewGuid();
         Status = Lifecycle.Pending;
         PurchasePrice = purchasePrice;
+        CoveredProduct = coveredProduct;
         PurchaseDate = purchaseDate;
         EffectiveDate = effectiveDate;
         ExpirationDate = expirationDate;
