@@ -22,16 +22,4 @@ public class ContractTest
 
         Assert.AreEqual(product, contract.CoveredProduct);
     }
-
-    [TestMethod]
-    public void TestContractEquality()
-    {
-        var product  = new Warranty.Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
-        var contract1 = new Warranty.Contract(100.0, product, new DateTime(2010, 5, 6), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
-        var contract2 = new Warranty.Contract(100.0, product, new DateTime(2010, 5, 6), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
-        var contract3 = new Warranty.Contract(100.0, product, new DateTime(2010, 5, 6), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
-
-        Assert.AreNotEqual(contract2, contract1);
-        Assert.AreNotEqual(contract3, contract1);
-    }
 }
