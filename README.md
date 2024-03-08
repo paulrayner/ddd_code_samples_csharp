@@ -4,7 +4,7 @@ The goal of the coding exercises is to apply targeted refactoring towards a rich
 
 We are going to pretend that we are members of the warranty application team for an extended warranty company, and that this repository contains some representative code for the core business logic handled by this system. You will need to imagine that the rest of the application exists, but is just not included here.
 
-N.b.: This code has a lot of issues. This is deliberate. For example, the majority of the objects are devoid of behavior and there is little documentation. Also, the tests may be incomplete, poorly named, duplicated, and intermixed with the production code. Accept that we are not going to fix most of the issues. Instead, focus on applying the techniques and patterns taught in the workshop to see the impact they can have.
+_N.b.: This code has a lot of issues. This is deliberate. For example, the majority of the objects are devoid of behavior and there is little documentation. Also, the tests may be incomplete, poorly named, duplicated, and intermixed with the production code. Accept that we are not going to fix most of the issues. Instead, focus on applying the techniques and patterns taught in the workshop to see the impact they can have._
 
 ## Installation Guide
 
