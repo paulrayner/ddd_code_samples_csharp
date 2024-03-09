@@ -9,10 +9,9 @@ public class ClaimsAdjudicationTest
     Contract FakeContract()
     {
         var product = new Warranty.Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
-        var contract = new Warranty.Contract(100.0, product, new DateTime(2010, 5, 6), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8))
-        {
-            Status = Warranty.Contract.Lifecycle.Active
-        };
+        TermsAndConditions termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
+        Contract contract = new Contract(100.0, product, termsAndConditions);
+        contract.Status = Warranty.Contract.Lifecycle.Active;
 
         return contract;
     }

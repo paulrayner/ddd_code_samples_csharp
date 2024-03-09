@@ -12,24 +12,9 @@ public class ClaimsAdjudication
      */
     public void adjudicate(Contract contract, Claim newClaim)
     {
-        if ((limitOfLiability(contract) > newClaim.Amount) &&
-             inEffectFor(contract, newClaim.FailureDate))
+        if (contract.covers(newClaim))
         {
             contract.add(newClaim);
         }
-    }
-
-    // These two new methods we've added seem to be responsibilities of Contract. Let's move them...
-    public double limitOfLiability(Contract contract)
-    {
-        double claimTotal = contract.getClaims().Sum(x => x.Amount);
-        return (contract.PurchasePrice - claimTotal) * 0.8;
-    }
-
-    public bool inEffectFor(Contract contract, DateTime failureDate)
-    {
-        return (contract.Status == Contract.Lifecycle.Active) &&
-             (DateTime.Compare(failureDate, contract.EffectiveDate) >= 0) &&
-             (DateTime.Compare(failureDate, contract.ExpirationDate) <= 0);
     }
 }

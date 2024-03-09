@@ -15,23 +15,20 @@ public class Contract
 
     public double PurchasePrice;
 
-    public DateTime PurchaseDate { get; }
-    public DateTime EffectiveDate { get; }
-    public DateTime ExpirationDate { get; }
     public Lifecycle Status { get; set; }
     public Product CoveredProduct { get; set; }
 
     private List<Claim> Claims = new List<Claim>();
 
-    public Contract(double purchasePrice, Product coveredProduct, DateTime purchaseDate, DateTime effectiveDate, DateTime expirationDate)
+    public TermsAndConditions TermsAndConditions;
+
+    public Contract(double purchasePrice, Product coveredProduct, TermsAndConditions termsAndConditions)
     {
         Id = Guid.NewGuid();
         Status = Lifecycle.Pending;
         PurchasePrice = purchasePrice;
         CoveredProduct = coveredProduct;
-        PurchaseDate = purchaseDate;
-        EffectiveDate = effectiveDate;
-        ExpirationDate = expirationDate;
+        TermsAndConditions = termsAndConditions;
     }
 
     public void add(Claim claim)
@@ -42,5 +39,32 @@ public class Contract
     public List<Claim> getClaims()
     {
         return Claims;
+    }
+
+    public bool covers(Claim claim)
+    {
+        return inEffectFor(claim.FailureDate) &&
+               withinLimitOfLiability(claim.Amount);
+    }
+
+    public bool inEffectFor(DateTime failureDate)
+    {
+        return TermsAndConditions.status(failureDate) == Lifecycle.Active &&
+                Status == Lifecycle.Active;
+    }
+
+    public bool withinLimitOfLiability(double claimAmount)
+    {
+        return claimAmount < remainingLiability();
+    }
+
+    public double remainingLiability() 
+    {
+        return TermsAndConditions.limitOfLiability(PurchasePrice) - claimTotal();
+    }
+
+    public double claimTotal() 
+    {
+        return getClaims().Sum(x => x.Amount);
     }
 }
