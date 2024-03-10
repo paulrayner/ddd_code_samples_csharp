@@ -26,4 +26,15 @@ public class TermsAndConditionsTest
 
         Assert.AreEqual(80.0, termsAndConditions.LimitOfLiability(100));
     }
+
+
+    [TestMethod]
+    public void TestTermsAndConditionsExtendAnnually()
+    {
+        var termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
+
+        var extendedTermsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2014, 5, 8));
+
+        Assert.AreEqual(extendedTermsAndConditions, termsAndConditions.AnnuallyExtended());
+    }
 }

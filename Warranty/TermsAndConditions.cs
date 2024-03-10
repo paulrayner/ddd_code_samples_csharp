@@ -16,4 +16,9 @@ public sealed record TermsAndConditions(DateTime PurchaseDate, DateTime Effectiv
         if (DateTime.Compare(date, ExpirationDate) > 0) return Contract.Lifecycle.Expired;
         return Contract.Lifecycle.Active;
     }
+
+    public TermsAndConditions AnnuallyExtended()
+    {
+        return new TermsAndConditions(PurchaseDate, EffectiveDate, ExpirationDate.AddYears(1));
+    }
 };

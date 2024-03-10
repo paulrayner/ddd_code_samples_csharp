@@ -71,4 +71,19 @@ public class ContractTest
         contract.Status = Contract.Lifecycle.Expired;
         Assert.IsFalse(contract.Covers(new Claim(10.0, new DateTime(2010, 10, 1))));
     }
+
+
+    [TestMethod]
+    public void TestExtendAnnualSubscription()
+    {
+        var product = new Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
+        var termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
+        var contract = new Contract(100.0, product, termsAndConditions);
+
+        contract.ExtendAnnualSubscription();
+        var extendedTermsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2014, 5, 8));
+
+        Assert.AreEqual(extendedTermsAndConditions, contract.TermsAndConditions);
+    }
+
 }

@@ -62,4 +62,9 @@ public class Contract
     {
         return TermsAndConditions.LimitOfLiability(PurchasePrice) - GetClaims().Sum(x => x.Amount);
     }
+
+    public void ExtendAnnualSubscription()
+    {
+        TermsAndConditions = TermsAndConditions.AnnuallyExtended();
+    }
 }
