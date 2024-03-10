@@ -10,15 +10,15 @@ public class ClaimsAdjudication
      * the process of paying claims submitted or denying them after comparing claims
      * to the benefit or coverage requirements.
      */
-    public void adjudicate(Contract contract, Claim newClaim)
+    public void Adjudicate(Contract contract, Claim newClaim)
     {
-        double claimTotal = contract.getClaims().Sum(x => x.Amount);
+        double claimTotal = contract.GetClaims().Sum(x => x.Amount);
         if (((contract.PurchasePrice - claimTotal) * 0.8 > newClaim.Amount) &&
              (contract.Status == Contract.Lifecycle.Active) &&
              (DateTime.Compare(newClaim.FailureDate, contract.EffectiveDate) >= 0) &&
              (DateTime.Compare(newClaim.FailureDate, contract.ExpirationDate) <= 0))
         {
-            contract.add(newClaim);
+            contract.Add(newClaim);
         }
     }
 }

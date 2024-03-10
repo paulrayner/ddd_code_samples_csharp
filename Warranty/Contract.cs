@@ -34,12 +34,12 @@ public class Contract
         ExpirationDate = expirationDate;
     }
 
-    public void add(Claim claim)
+    public void Add(Claim claim)
     {
         Claims.Add(claim);
     }
 
-    public List<Claim> getClaims()
+    public List<Claim> GetClaims()
     {
         return Claims;
     }
