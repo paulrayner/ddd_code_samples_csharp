@@ -7,7 +7,7 @@ public sealed record TermsAndConditions(DateTime PurchaseDate, DateTime Effectiv
 
     public double LimitOfLiability(double purchasePrice)
     {
-        return (purchasePrice * LimitOfLiabilityPercentage);
+        return purchasePrice * LimitOfLiabilityPercentage;
     }
 
     public Contract.Lifecycle Status(DateTime date)
