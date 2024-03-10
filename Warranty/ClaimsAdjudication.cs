@@ -10,11 +10,11 @@ public class ClaimsAdjudication
      * the process of paying claims submitted or denying them after comparing claims
      * to the benefit or coverage requirements.
      */
-    public void adjudicate(Contract contract, Claim newClaim)
+    public void Adjudicate(Contract contract, Claim newClaim)
     {
-        if (contract.covers(newClaim))
+        if (contract.Covers(newClaim))
         {
-            contract.add(newClaim);
+            contract.Add(newClaim);
         }
     }
 }

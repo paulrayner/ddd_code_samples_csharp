@@ -9,8 +9,8 @@ public class ContractTest
     public void TestContractSetUpProperly()
     {
         var product  = new Warranty.Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
-        TermsAndConditions termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
-        Contract contract = new Contract(100.0, product, termsAndConditions);
+        var termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
+        var contract = new Contract(100.0, product, termsAndConditions);
 
         Assert.IsNotNull(contract.Id);
         Assert.AreEqual(100.0, contract.PurchasePrice);
@@ -20,22 +20,55 @@ public class ContractTest
     }
 
     [TestMethod]
-    public void contractInEffectBasedOnStatusAndEffectiveAndExpirationDateRange()
+    public void TestContractInEffectBasedOnStatusAndEffectiveAndExpirationDateRange()
+    {
+        var product = new Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
+        var termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
+        var contract = new Contract(100.0, product, termsAndConditions);
+
+        contract.Status = Contract.Lifecycle.Pending;
+        Assert.IsFalse(contract.InEffectFor(new DateTime(2010, 5, 9)));
+
+        contract.Status = Contract.Lifecycle.Active;
+        Assert.IsFalse(contract.InEffectFor(new DateTime(2010, 5, 7)));
+        Assert.IsTrue(contract.InEffectFor(new DateTime(2010, 5, 8)));
+        Assert.IsTrue(contract.InEffectFor(new DateTime(2013, 5, 7)));
+        Assert.IsFalse(contract.InEffectFor(new DateTime(2013, 5, 9)));
+
+        contract.Status = Contract.Lifecycle.Expired;
+        Assert.IsFalse(contract.InEffectFor(new DateTime(2010, 5, 8)));
+    }
+
+    [TestMethod]
+    public void TestClaimAmountsWithinLimitOfLiability()
+    {
+        Product product = new Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
+        TermsAndConditions termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
+        Contract contract = new Contract(100.0, product, termsAndConditions);
+
+        Assert.IsTrue(contract.WithinLimitOfLiability(10));
+        Assert.IsTrue(contract.WithinLimitOfLiability(79));
+        Assert.IsFalse(contract.WithinLimitOfLiability(80)); // Must be less than the limit amount
+        Assert.IsFalse(contract.WithinLimitOfLiability(90));
+    }
+
+    [TestMethod]
+    public void TestActiveContractCoverage()
     {
         Product product = new Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
         TermsAndConditions termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
         Contract contract = new Contract(100.0, product, termsAndConditions);
 
         contract.Status = Contract.Lifecycle.Pending;
-        Assert.IsTrue(contract.inEffectFor(new DateTime(2010, 5, 9)));
+        Assert.IsFalse(contract.Covers(new Claim(10.0, new DateTime(2010, 10, 1))));
 
         contract.Status = Contract.Lifecycle.Active;
-        Assert.IsFalse(contract.inEffectFor(new DateTime(2010, 5, 7)));
-        Assert.IsTrue(contract.inEffectFor(new DateTime(2010, 5, 8)));
-        Assert.IsTrue(contract.inEffectFor(new DateTime(2013, 5, 7)));
-        Assert.IsFalse(contract.inEffectFor(new DateTime(2013, 5, 9)));
+        Assert.IsTrue(contract.Covers(new Claim(10.0, new DateTime(2010, 10, 1))));
+        Assert.IsTrue(contract.Covers(new Claim(79.0, new DateTime(2010, 10, 1))));
+        Assert.IsFalse(contract.Covers(new Claim(80.0, new DateTime(2010, 10, 1))));
+        Assert.IsFalse(contract.Covers(new Claim(90.0, new DateTime(2010, 10, 1))));
 
         contract.Status = Contract.Lifecycle.Expired;
-        Assert.IsFalse(contract.inEffectFor(new DateTime(2010, 5, 8)));
+        Assert.IsFalse(contract.Covers(new Claim(10.0, new DateTime(2010, 10, 1))));
     }
 }

@@ -31,40 +31,35 @@ public class Contract
         TermsAndConditions = termsAndConditions;
     }
 
-    public void add(Claim claim)
+    public void Add(Claim claim)
     {
         Claims.Add(claim);
     }
 
-    public List<Claim> getClaims()
+    public List<Claim> GetClaims()
     {
         return Claims;
     }
 
-    public bool covers(Claim claim)
+    public bool Covers(Claim claim)
     {
-        return inEffectFor(claim.FailureDate) &&
-               withinLimitOfLiability(claim.Amount);
+        return InEffectFor(claim.FailureDate) &&
+               WithinLimitOfLiability(claim.Amount);
     }
 
-    public bool inEffectFor(DateTime failureDate)
+    public bool InEffectFor(DateTime failureDate)
     {
-        return TermsAndConditions.status(failureDate) == Lifecycle.Active &&
+        return TermsAndConditions.Status(failureDate) == Lifecycle.Active &&
                 Status == Lifecycle.Active;
     }
 
-    public bool withinLimitOfLiability(double claimAmount)
+    public bool WithinLimitOfLiability(double claimAmount)
     {
-        return claimAmount < remainingLiability();
+        return claimAmount < RemainingLiability();
     }
 
-    public double remainingLiability() 
+    public double RemainingLiability() 
     {
-        return TermsAndConditions.limitOfLiability(PurchasePrice) - claimTotal();
-    }
-
-    public double claimTotal() 
-    {
-        return getClaims().Sum(x => x.Amount);
+        return TermsAndConditions.LimitOfLiability(PurchasePrice) - GetClaims().Sum(x => x.Amount);
     }
 }
