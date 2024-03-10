@@ -13,7 +13,7 @@ public class Claim {
     public Guid Id { get; }
     public DateTime FailureDate { get; set; }
 
-    public List<RepairPO> RepairPO = new List<RepairPO>();
+    public List<RepairPO> RepairPO = [];
 
     public Claim(double amount, DateTime failureDate)
     {
