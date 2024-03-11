@@ -18,7 +18,9 @@ public class Contract
     public Lifecycle Status { get; set; }
     public Product CoveredProduct { get; set; }
 
-    private List<Claim> Claims = new List<Claim>();
+    public List<Claim> Claims = [];
+
+    public List<SubscriptionRenewed> Events = [];
 
     public TermsAndConditions TermsAndConditions;
 
@@ -66,5 +68,6 @@ public class Contract
     public void ExtendAnnualSubscription()
     {
         TermsAndConditions = TermsAndConditions.AnnuallyExtended();
+        Events.Add(new SubscriptionRenewed(Id, "Automatic Annual Renewal"));
     }
 }

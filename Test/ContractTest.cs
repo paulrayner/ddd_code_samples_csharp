@@ -84,6 +84,9 @@ public class ContractTest
         var extendedTermsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2014, 5, 8));
 
         Assert.AreEqual(extendedTermsAndConditions, contract.TermsAndConditions);
+        Assert.IsNotNull(contract.Events);
+        Assert.AreEqual(1, contract.Events.Count);
+        Assert.AreEqual(contract.Id, contract.Events.First().ContractId);
+        Assert.AreEqual("Automatic Annual Renewal", contract.Events.First().Reason);
     }
-
 }
