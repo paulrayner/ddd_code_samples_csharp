@@ -20,7 +20,7 @@ public class Contract
 
     public List<Claim> Claims = [];
 
-    public List<SubscriptionRenewed> Events = [];
+    public List<Event> Events = [];
 
     public TermsAndConditions TermsAndConditions;
 
