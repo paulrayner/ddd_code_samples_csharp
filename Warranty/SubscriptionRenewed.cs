@@ -1,10 +1,19 @@
 namespace Warranty;
 
-public record Event() 
+public class Event
 {
-    public readonly DateTime OccuredAt = DateTime.Now;
+    public DateTime OccurredAt {get; set;}
 };
 
-public sealed record SubscriptionRenewed(Guid ContractId, string Reason) : Event
+public class SubscriptionRenewed : Event
 {
+    public Guid ContractId;
+    public string Reason;
+
+    public SubscriptionRenewed(Guid contractId, string reason)
+    {
+        ContractId = contractId;
+        Reason = reason;
+        OccurredAt = DateTime.Now;
+    }
 };
