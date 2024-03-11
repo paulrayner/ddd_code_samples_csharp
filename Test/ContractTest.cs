@@ -89,5 +89,5 @@ public class ContractTest
         Assert.AreEqual(contract.Id, contract.Renewals.First().ContractId);
         Assert.AreEqual("Automatic Annual Renewal", contract.Renewals.First().Reason);
         Assert.AreEqual(DateTime.Today, contract.Renewals.First().OccurredAt.Date);
-}
+    }
 }
