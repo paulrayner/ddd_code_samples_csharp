@@ -20,7 +20,7 @@ public class Contract
 
     public List<Claim> Claims = [];
 
-    public List<Event> Events = [];
+    public List<SubscriptionRenewed> Renewals = [];
 
     public TermsAndConditions TermsAndConditions;
 
@@ -68,6 +68,6 @@ public class Contract
     public void ExtendAnnualSubscription()
     {
         TermsAndConditions = TermsAndConditions.AnnuallyExtended();
-        Events.Add(new SubscriptionRenewed(Id, "Automatic Annual Renewal"));
+        Renewals.Add(new SubscriptionRenewed(Id, "Automatic Annual Renewal"));
     }
 }

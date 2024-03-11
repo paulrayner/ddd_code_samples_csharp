@@ -5,8 +5,9 @@ public class Event
     public DateTime OccurredAt {get; set;}
 };
 
-public class SubscriptionRenewed : Event
+public class SubscriptionRenewed
 {
+    public DateTime OccurredAt;
     public Guid ContractId;
     public string Reason;
 
