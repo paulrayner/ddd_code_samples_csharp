@@ -90,4 +90,23 @@ public class ContractTest
         Assert.AreEqual("Automatic Annual Renewal", contract.Renewals.First().Reason);
         Assert.AreEqual(DateTime.Today, contract.Renewals.First().OccurredAt.Date);
     }
+
+    // TODO: Practice using domain events by making the terminate contract test pass
+    // [TestMethod]
+    // public void TestTerminateContract()
+    // {
+    //     var product = new Product("dishwasher", "OEUOEU23", "Whirlpool", "7DP840CWDB0");
+    //     var termsAndConditions = new TermsAndConditions(new DateTime(2010, 5, 7), new DateTime(2010, 5, 8), new DateTime(2013, 5, 8));
+    //     var contract = new Contract(100.0, product, termsAndConditions);
+
+    //     contract.Terminate("Debbie", "Limit of Liability Exceeded");
+
+    //     Assert.AreEqual(Contract.Lifecycle.Fulfilled, contract.Status);
+    //     Assert.IsNotNull(contract.Events);
+    //     Assert.AreEqual(1, contract.Events.Count);
+    //     Assert.AreEqual(contract.Id, contract.Events.First().ContractId);
+    //     Assert.AreEqual("Debbie", contract.Events.First().RepName);
+    //     Assert.AreEqual("Limit of Liability Exceeded", contract.Events.First().Reason);
+    //     Assert.AreEqual(DateTime.Today, contract.Events.First().OccurredAt.Date);
+    // }
 }
