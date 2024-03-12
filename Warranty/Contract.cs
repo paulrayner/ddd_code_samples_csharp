@@ -9,7 +9,7 @@
 
 public class Contract
 {
-    public enum Lifecycle { Pending, Active, Expired }
+    public enum Lifecycle { Pending, Active, Expired, Fulfilled }
 
     public Guid Id { get; }
 
@@ -21,6 +21,7 @@ public class Contract
     public List<Claim> Claims = [];
 
     public List<SubscriptionRenewed> Renewals = [];
+    public List<CustomerReimbursementRequested> Events = [];
 
     public TermsAndConditions TermsAndConditions;
 
@@ -69,5 +70,11 @@ public class Contract
     {
         TermsAndConditions = TermsAndConditions.AnnuallyExtended();
         Renewals.Add(new SubscriptionRenewed(Id, "Automatic Annual Renewal"));
+    }
+
+    public void Terminate(string repName, string reason)
+    {
+        Status = Lifecycle.Fulfilled;
+        Events.Add(new CustomerReimbursementRequested(Id, "Debbie", "Limit of Liability Exceeded"));
     }
 }

@@ -1,10 +1,5 @@
 namespace Warranty;
 
-public class Event
-{
-    public DateTime OccurredAt {get; set;}
-};
-
 public class SubscriptionRenewed
 {
     public DateTime OccurredAt;
